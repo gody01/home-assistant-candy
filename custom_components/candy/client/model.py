@@ -209,6 +209,8 @@ class DishwasherStatus:
     remote_control: bool
     salt_empty: bool
     rinse_aid_empty: bool
+    extra_dry: bool
+    half_load: bool
 
     @classmethod
     def from_json(cls, json):
@@ -216,13 +218,15 @@ class DishwasherStatus:
             machine_state=DishwasherState(int(json["StatoDWash"])),
             program=DishwasherStatus.parse_program(json),
             remaining_minutes=int(json["RemTime"]),
-            delayed_start_hours=int(json["DelayStart"]) if json["DelayStart"] != "0" else None,
+            delayed_start_hours=int(json["DelayStart"])/60 if json["DelayStart"] != "0" else None,
             door_open=json["OpenDoor"] != "0",
             door_open_allowed=json["OpenDoorOpt"] == "1" if "OpenDoorOpt" in json else None,
             eco_mode=json["Eco"] != "0",
             remote_control=json["StatoWiFi"] == "1",
             salt_empty=json["MissSalt"] == "1",
-            rinse_aid_empty=json["MissRinse"] == "1"
+            rinse_aid_empty=json["MissRinse"] == "1",
+            extra_dry=json["ExtraDry"] != "0"
+            half_load=json["MetaCarico"] != "0"
         )
 
     @staticmethod

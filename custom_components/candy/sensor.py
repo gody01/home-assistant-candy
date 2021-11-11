@@ -385,7 +385,9 @@ class CandyDishwasherSensor(CandyBaseSensor):
             "door_open": status.door_open,
             "eco_mode": status.eco_mode,
             "salt_empty": status.salt_empty,
-            "rinse_aid_empty": status.rinse_aid_empty
+            "rinse_aid_empty": status.rinse_aid_empty,
+            "extra_dry": status.extra_dry,
+            "half_load": status.half_load
         }
 
         if status.door_open_allowed is not None:
